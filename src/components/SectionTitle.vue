@@ -8,6 +8,15 @@
         <PlusCircle class="plus-circle" @click="addTask()" /><Trush />
       </div>
     </div>
+        <draggable
+        :list="newTask"
+        :disabled="!enabled"
+        class="list-group"
+        ghost-class="ghost"
+        :move="checkMove"
+        @start="dragging = true"
+        @end="dragging = false"
+      >
     <div class="task" v-for="s in newTask" :key="s">
       <div class="task-left">
         <div class="task-state">
@@ -20,10 +29,12 @@
       </div>
       <div class="task-right"><Dot /><BookMark /></div>
     </div>
+    </draggable>
   </div>
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import PlusCircle from "@/icons/PlusCircle.svg";
 import Trush from "@/icons/Trush.svg";
 import Dot from "@/icons/Dot.svg";
@@ -32,19 +43,35 @@ export default {
   data() {
     return {
       newTask: [],
+       enabled: true,
+      dragging: false
     };
   },
+  computed: {
+    draggingInfo() {
+      return this.dragging ? "under drag" : "";
+    }},
   methods: {
     addTask() {
-      var xxx = { name: null, date: new Date().toISOString().split("T")[0] };
+      var xxx = { name: null, date: new Date().toISOString().split("T")[0] ,id: Math.random() };
       this.newTask.push(xxx);
     },
+    add: function() {
+      this.newTask.push({ name: "Juan "});
+    },
+    replace: function() {
+      this.newTask = [{ name: "Edgard"}];
+    },
+    checkMove: function(e) {
+      window.console.log("Future index: " + e.draggedContext.futureIndex);
+    }
   },
   components: {
     PlusCircle,
     Trush,
     Dot,
     BookMark,
+    draggable
   },
   props: {
     sectionName: String,
@@ -57,7 +84,7 @@ input {
   background: transparent;
   border: none;
 }
-.plus-circle{
-    cursor: pointer;
+.plus-circle {
+  cursor: pointer;
 }
 </style>

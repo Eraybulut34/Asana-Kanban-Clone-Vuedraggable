@@ -2,7 +2,17 @@
   <div class="hello">
     {{ newSection }}
     <div class="sections">
+      <draggable
+        :list="newSection"
+        :disabled="!enabled"
+        class="list-group"
+        ghost-class="ghost"
+        :move="checkMove"
+        @start="dragging = true"
+        @end="dragging = false"
+      >
       <SectionTitle v-for="(n,index) in newSection" :key="n" :sectionName="n.name+(index+1)" />
+      </draggable>
        <button class="add" @click="addSection"><Plus/>Add Section</button>
     </div>
   </div>
@@ -31,6 +41,7 @@ export default {
     };
   },
   methods: {
+    
     addTask() {
       var xxx = { name: null, date: new Date().toISOString().split("T")[0] };
       this.newTask.push(xxx);
