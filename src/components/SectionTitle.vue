@@ -11,8 +11,6 @@
         <draggable
         :list="newTask"
         :disabled="!enabled"
-        class="list-group"
-        ghost-class="ghost"
         :move="checkMove"
         @start="dragging = true"
         @end="dragging = false"
@@ -23,7 +21,7 @@
           <div class="task-state-text">CONFIRMED</div>
         </div>
         <div class="task-title">
-          <input type="text" :value="s.name" />
+          <input type="text" :value="xxx" />
         </div>
         <div class="task-date">{{ s.date }}</div>
       </div>
@@ -44,7 +42,8 @@ export default {
     return {
       newTask: [],
        enabled: true,
-      dragging: false
+      dragging: false,
+      xxx: null,
     };
   },
   computed: {
@@ -53,7 +52,7 @@ export default {
     }},
   methods: {
     addTask() {
-      var xxx = { name: null, date: new Date().toISOString().split("T")[0] ,id: Math.random() };
+      var xxx = { name: null, date: new Date().toISOString().split("T")[0]};
       this.newTask.push(xxx);
     },
     add: function() {

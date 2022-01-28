@@ -3,23 +3,25 @@
     {{ newSection }}
     <div class="sections">
       <draggable
-        :list="newSection"
+        class="sections"
+        :group="newSection"
         :disabled="!enabled"
-        class="list-group"
-        ghost-class="ghost"
         :move="checkMove"
         @start="dragging = true"
         @end="dragging = false"
       >
-      <SectionTitle v-for="(n,index) in newSection" :key="n" :sectionName="n.name+(index+1)" />
+        <SectionTitle
+          v-for="n in newSection"
+          :key="n"
+        />
       </draggable>
-       <button class="add" @click="addSection"><Plus/>Add Section</button>
+      <button class="add" @click="addSection"><Plus />Add Section</button>
     </div>
   </div>
 </template>
 
 <script>
-//import draggable from "vuedraggable";
+import draggable from "vuedraggable";
 //import Dot from "@/icons/Dot.svg";
 //import BookMark from "@/icons/BookMark.svg";
 import Plus from "@/icons/Plus.svg";
@@ -28,20 +30,25 @@ import SectionTitle from "@/components/SectionTitle.vue";
 export default {
   name: "HelloWorld",
   components: {
-    //draggable,
+    draggable,
     //Dot,
     //BookMark,
     Plus,
-    SectionTitle,
+  SectionTitle,
   },
   data() {
     return {
       newSection: [],
-      newTask: [],
+      enabled: true,
+      dragging: false,
     };
   },
+  computed: {
+    draggingInfo() {
+      return this.dragging ? "under drag" : "";
+    },
+  },
   methods: {
-    
     addTask() {
       var xxx = { name: null, date: new Date().toISOString().split("T")[0] };
       this.newTask.push(xxx);
@@ -49,6 +56,15 @@ export default {
     addSection() {
       var xxy = { name: null };
       this.newSection.push(xxy);
+    },
+    add: function () {
+      this.newSection.push({ name: "Juan " });
+    },
+    replace: function () {
+      this.newSection = [{ name: "Edgard" }];
+    },
+    checkMove: function (e) {
+      window.console.log("Future index: " + e.draggedContext.futureIndex);
     },
   },
 };
@@ -176,16 +192,16 @@ export default {
   border-radius: 6px;
 }
 .task-state-text {
-    position: static;
-    width: 64px;
-    font-family: IBM Plex Sans;
-    font-style: normal;
-    font-weight: 500;
-    align-items: center;
-    text-align: center;
-    color: #fffdff;
-    margin-left: -5px;
-    margin-top: -5px;
+  position: static;
+  width: 64px;
+  font-family: IBM Plex Sans;
+  font-style: normal;
+  font-weight: 500;
+  align-items: center;
+  text-align: center;
+  color: #fffdff;
+  margin-left: -5px;
+  margin-top: -5px;
 }
 .task-title {
   position: static;
