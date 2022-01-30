@@ -1,6 +1,5 @@
 <template>
-  <div class="hello">
-    {{ newSection }}
+  <div class="home">
     <div class="sections">
       <draggable
         class="sections"
@@ -13,10 +12,11 @@
         <SectionTitle
           v-for="n in newSection"
           :key="n"
-          :sectionName="newSection"
+          :sectionName="n.name"
         />
+        <button class="add" @click="addSection"><Plus />Add Section</button>
       </draggable>
-      <button class="add" @click="addSection"><Plus />Add Section</button>
+      
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ import Plus from "@/icons/Plus.svg";
 import SectionTitle from "@/components/SectionTitle.vue";
 
 export default {
-  name: "HelloWorld",
+  name: "Home",
   components: {
     draggable,
     Plus,
@@ -67,15 +67,21 @@ export default {
 };
 </script>
 <style lang="scss">
+.home {
+    display: flex;
+  justify-content: center;
+  background-color: #e5e5e5;
+  min-height: 2000px;
+  min-width: 1000px;
+
+  
+}
 .sections {
+  padding-top: 20px;
   display: flex;
   flex-direction: row;
 }
-.hello {
-  background-color: #e5e5e5;
-  height: 2000px;
-  justify-content: center;
-}
+
 .section {
   display: flex;
   flex-direction: column;
@@ -157,9 +163,6 @@ export default {
   height: 96px;
   left: 20px;
   top: 20px;
-
-  /* Inside auto layout */
-
   flex: none;
   order: 0;
   flex-grow: 0;
@@ -170,7 +173,6 @@ export default {
   justify-content: space-between;
   align-items: flex-end;
   padding: 0px;
-
   position: static;
   width: 25px;
   height: 96px;
@@ -184,7 +186,8 @@ export default {
   flex-direction: row;
   padding: 7px;
   position: static;
-  width: 95px;
+  width: 85px;
+  height: 20px;
   background-color: #9b73aa;
   border-radius: 6px;
 }
@@ -194,6 +197,7 @@ export default {
   font-family: IBM Plex Sans;
   font-style: normal;
   font-weight: 500;
+  font-size: 14px;
   align-items: center;
   text-align: center;
   color: #fffdff;
@@ -206,17 +210,12 @@ export default {
   height: 24px;
   left: 0px;
   top: 34px;
-
   font-family: IBM Plex Sans Devanagari;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 24px;
-
   color: #000000;
-
-  /* Inside auto layout */
-
   flex: none;
   flex-grow: 0;
   margin: 20px 0px;
@@ -232,14 +231,11 @@ input {
   justify-content: space-evenly;
   align-items: center;
   padding: 10px;
-
   width: 148px;
   height: 51px;
-
-  /* Blue 1 */
-
   background: #2f80ed;
   border-radius: 6px;
   cursor: pointer;
+  border: none;
 }
 </style>

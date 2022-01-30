@@ -8,25 +8,25 @@
         <PlusCircle class="plus-circle" @click="addTask()" /><Trush />
       </div>
     </div>
-        <draggable
-        :list="newTask"
-        :disabled="!enabled"
-        :move="checkMove"
-        @start="dragging = true"
-        @end="dragging = false"
-      >
-    <div class="task" v-for="s in newTask" :key="s">
-      <div class="task-left">
-        <div class="task-state">
-          <div class="task-state-text">CONFIRMED</div>
+    <draggable
+      :list="newTask"
+      :disabled="!enabled"
+      :move="checkMove"
+      @start="dragging = true"
+      @end="dragging = false"
+    >
+      <div class="task" v-for="s in newTask" :key="s">
+        <div class="task-left">
+          <div class="task-state">
+            <div class="task-state-text">CONFIRMED</div>
+          </div>
+          <div class="task-title">
+            <input type="text" :value="xxx" />
+          </div>
+          <div class="task-date">{{ s.date }}</div>
         </div>
-        <div class="task-title">
-          <input type="text" :value="xxx" />
-        </div>
-        <div class="task-date">{{ s.date }}</div>
+        <div class="task-right"><Dot /><BookMark /></div>
       </div>
-      <div class="task-right"><Dot /><BookMark /></div>
-    </div>
     </draggable>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       newTask: [],
-       enabled: true,
+      enabled: true,
       dragging: false,
       xxx: null,
     };
@@ -49,28 +49,29 @@ export default {
   computed: {
     draggingInfo() {
       return this.dragging ? "under drag" : "";
-    }},
+    },
+  },
   methods: {
     addTask() {
-      var xxx = { name: null, date: new Date().toISOString().split("T")[0]};
+      var xxx = { name: null, date: new Date().toISOString().split("T")[0] };
       this.newTask.push(xxx);
     },
-    add: function() {
-      this.newTask.push({ name: "Juan "});
+    add: function () {
+      this.newTask.push({ name: "Juan " });
     },
-    replace: function() {
-      this.newTask = [{ name: "Edgard"}];
+    replace: function () {
+      this.newTask = [{ name: "Edgard" }];
     },
-    checkMove: function(e) {
+    checkMove: function (e) {
       window.console.log("Future index: " + e.draggedContext.futureIndex);
-    }
+    },
   },
   components: {
     PlusCircle,
     Trush,
     Dot,
     BookMark,
-    draggable
+    draggable,
   },
   props: {
     sectionName: String,
@@ -79,9 +80,16 @@ export default {
 </script>
 
 <style lang="scss">
-input {
+input [type="text"] {
   background: transparent;
   border: none;
+  font-family: IBM Plex Sans Devanagari;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #000000;
 }
 .plus-circle {
   cursor: pointer;
