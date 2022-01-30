@@ -13,6 +13,7 @@
         <SectionTitle
           v-for="n in newSection"
           :key="n"
+          :sectionName="newSection"
         />
       </draggable>
       <button class="add" @click="addSection"><Plus />Add Section</button>
@@ -22,8 +23,6 @@
 
 <script>
 import draggable from "vuedraggable";
-//import Dot from "@/icons/Dot.svg";
-//import BookMark from "@/icons/BookMark.svg";
 import Plus from "@/icons/Plus.svg";
 import SectionTitle from "@/components/SectionTitle.vue";
 
@@ -31,8 +30,6 @@ export default {
   name: "HelloWorld",
   components: {
     draggable,
-    //Dot,
-    //BookMark,
     Plus,
   SectionTitle,
   },
@@ -54,7 +51,7 @@ export default {
       this.newTask.push(xxx);
     },
     addSection() {
-      var xxy = { name: null };
+      var xxy = { name: "", tasks: [] };
       this.newSection.push(xxy);
     },
     add: function () {
